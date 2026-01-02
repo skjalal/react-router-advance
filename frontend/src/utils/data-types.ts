@@ -19,4 +19,12 @@ type EventFormProps = {
   event: Event;
 };
 
-export type { Event, EventsListProps, EventItemProps, EventFormProps };
+type EventRouteParam = { eventId: string };
+
+export type {
+  Event,
+  EventsListProps,
+  EventItemProps,
+  EventFormProps,
+  EventRouteParam,
+};

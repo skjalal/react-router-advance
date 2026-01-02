@@ -13,12 +13,12 @@ const MainNavigation: React.FC = (): JSX.Element => {
       <nav>
         <ul className={classes.list}>
           <li>
-            <NavLink to="/" className={getNavLinkClass} end>
+            <NavLink to="" className={getNavLinkClass} end>
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/events" className={getNavLinkClass}>
+            <NavLink to="events" className={getNavLinkClass}>
               Events
             </NavLink>
           </li>

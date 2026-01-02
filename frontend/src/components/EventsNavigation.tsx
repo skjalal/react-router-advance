@@ -1,5 +1,11 @@
 import React, { type JSX } from "react";
+import { NavLink } from "react-router-dom";
+
 import classes from "./EventsNavigation.module.css";
+
+const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
+  return isActive ? classes.active : undefined;
+};
 
 const EventsNavigation: React.FC = (): JSX.Element => {
   return (
@@ -7,10 +13,14 @@ const EventsNavigation: React.FC = (): JSX.Element => {
       <nav>
         <ul className={classes.list}>
           <li>
-            <a href="/events">All Events</a>
+            <NavLink to="" className={getNavLinkClass} end>
+              All Events
+            </NavLink>
           </li>
           <li>
-            <a href="/events/new">New Event</a>
+            <NavLink to="new" className={getNavLinkClass}>
+              New Event
+            </NavLink>
           </li>
         </ul>
       </nav>

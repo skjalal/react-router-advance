@@ -12,6 +12,7 @@ import EventsPage from "./pages/Events.tsx";
 import EventDetailPage from "./pages/EventDetail.tsx";
 import NewEventPage from "./pages/NewEvent.tsx";
 import EditEventPage from "./pages/EditEvent.tsx";
+import EventsRootLayout from "./pages/EventsRoot.tsx";
 
 import "./App.css";
 
@@ -22,10 +23,16 @@ const routes: RouteObject[] = [
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "events", element: <EventsPage /> },
-      { path: "events/:eventId", element: <EventDetailPage /> },
-      { path: "events/new", element: <NewEventPage /> },
-      { path: "events/:eventId/edit", element: <EditEventPage /> },
+      {
+        path: "events",
+        element: <EventsRootLayout />,
+        children: [
+          { index: true, element: <EventsPage /> },
+          { path: ":eventId", element: <EventDetailPage /> },
+          { path: "new", element: <NewEventPage /> },
+          { path: ":eventId/edit", element: <EditEventPage /> },
+        ],
+      },
     ],
   },
 ];
