@@ -13,21 +13,9 @@ import EventDetailPage from "./pages/EventDetail.tsx";
 import NewEventPage from "./pages/NewEvent.tsx";
 import EditEventPage from "./pages/EditEvent.tsx";
 import EventsRootLayout from "./pages/EventsRoot.tsx";
+import { eventLoader } from "./api/event-api.ts";
 
 import "./App.css";
-import type { Data, Event } from "./utils/data-types.ts";
-
-const eventLoader = async (): Promise<Event[]> => {
-  const response = await fetch("http://localhost:3000/events");
-
-  if (response.ok) {
-    const resData: Data = await response.json();
-    return resData.events;
-  } else {
-    console.error("Fetching events failed.");
-  }
-  return [];
-};
 
 const routes: RouteObject[] = [
   {
