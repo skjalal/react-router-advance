@@ -6,6 +6,10 @@ type Event = {
   date: string;
 };
 
+type Data = {
+  events: Event[];
+};
+
 type EventsListProps = {
   events: Event[];
 };
@@ -27,4 +31,5 @@ export type {
   EventItemProps,
   EventFormProps,
   EventRouteParam,
+  Data,
 };

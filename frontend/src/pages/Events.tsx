@@ -1,37 +1,37 @@
-import React, { type JSX } from "react";
-import { Link } from "react-router-dom";
-import type { Event } from "../utils/data-types";
+import React, { type JSX, useEffect, useState } from "react";
 
-const DUMMY_EVENTS: Event[] = [
-  {
-    id: "e1",
-    title: "A dummy event",
-    date: "2023-02-22",
-    image:
-      "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-    description: "Join this amazing event and connect with fellow developers.",
-  },
-  {
-    id: "e2",
-    title: "Another dummy event",
-    date: "2023-02-24",
-    image:
-      "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-    description: "Join this amazing event and connect with fellow developers.",
-  },
-];
+import EventsList from "../components/EventsList";
+import type { Event, Data } from "../utils/data-types";
 
 const EventsPage: React.FC = (): JSX.Element => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [fetchedEvents, setFetchedEvents] = useState<Event[]>([]);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    async function fetchEvents() {
+      setIsLoading(true);
+      const response = await fetch("http://localhost:3000/events");
+
+      if (response.ok) {
+        const resData: Data = await response.json();
+        setFetchedEvents(resData.events);
+      } else {
+        setError("Fetching events failed.");
+      }
+      setIsLoading(false);
+    }
+
+    fetchEvents();
+  }, []);
+
   return (
     <>
-      <h1>This is Events Page</h1>
-      <ul>
-        {DUMMY_EVENTS.map((event) => (
-          <li key={event.id}>
-            <Link to={event.id}>{event.title}</Link>
-          </li>
-        ))}
-      </ul>
+      <div style={{ textAlign: "center" }}>
+        {isLoading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+      </div>
+      {!isLoading && fetchedEvents && <EventsList events={fetchedEvents} />}
     </>
   );
 };
