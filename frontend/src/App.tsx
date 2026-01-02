@@ -15,6 +15,19 @@ import EditEventPage from "./pages/EditEvent.tsx";
 import EventsRootLayout from "./pages/EventsRoot.tsx";
 
 import "./App.css";
+import type { Data, Event } from "./utils/data-types.ts";
+
+const eventLoader = async (): Promise<Event[]> => {
+  const response = await fetch("http://localhost:3000/events");
+
+  if (response.ok) {
+    const resData: Data = await response.json();
+    return resData.events;
+  } else {
+    console.error("Fetching events failed.");
+  }
+  return [];
+};
 
 const routes: RouteObject[] = [
   {
@@ -27,7 +40,7 @@ const routes: RouteObject[] = [
         path: "events",
         element: <EventsRootLayout />,
         children: [
-          { index: true, element: <EventsPage /> },
+          { index: true, element: <EventsPage />, loader: eventLoader },
           { path: ":eventId", element: <EventDetailPage /> },
           { path: "new", element: <NewEventPage /> },
           { path: ":eventId/edit", element: <EditEventPage /> },
