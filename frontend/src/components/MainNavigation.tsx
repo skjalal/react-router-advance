@@ -1,6 +1,11 @@
 import React, { type JSX } from "react";
+import { NavLink } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
+
+const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
+  return isActive ? classes.active : undefined;
+};
 
 const MainNavigation: React.FC = (): JSX.Element => {
   return (
@@ -8,10 +13,14 @@ const MainNavigation: React.FC = (): JSX.Element => {
       <nav>
         <ul className={classes.list}>
           <li>
-            <a href="/">Home</a>
+            <NavLink to="/" className={getNavLinkClass} end>
+              Home
+            </NavLink>
           </li>
           <li>
-            <a href="/">Events</a>
+            <NavLink to="/events" className={getNavLinkClass}>
+              Events
+            </NavLink>
           </li>
         </ul>
       </nav>
