@@ -8,8 +8,6 @@ type Event = {
 
 type Data = {
   events: Event[];
-  isError?: boolean;
-  message?: string;
 };
 
 type EventsListProps = {

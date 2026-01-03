@@ -6,10 +6,7 @@ import type { Data } from "../utils/data-types";
 
 const EventsPage: React.FC = (): JSX.Element => {
   const data = useLoaderData<Data>();
-  const { events, isError, message } = data;
-  if (isError) {
-    return <p>{message}</p>;
-  }
+  const { events } = data;
   return <EventsList events={events} />;
 };
 
