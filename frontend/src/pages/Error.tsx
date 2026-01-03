@@ -1,14 +1,18 @@
 import React from "react";
-import MainNavigation from "../components/MainNavigation";
+import { useRouteError, isRouteErrorResponse } from "react-router-dom";
+import PageContent from "../components/PageContent.tsx";
 
 const ErrorPage: React.FC = () => {
+  const error = useRouteError();
+  const title: string = "An error occurred!";
+  let message: string = "Something went wrong!";
+  if (isRouteErrorResponse(error)) {
+    message = error.data;
+  }
   return (
-    <>
-      <MainNavigation />
-      <main>
-        <h1> An error occurred!</h1>
-      </main>
-    </>
+    <PageContent title={title}>
+      <p>{message}</p>
+    </PageContent>
   );
 };
 

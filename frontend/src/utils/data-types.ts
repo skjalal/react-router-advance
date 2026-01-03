@@ -25,6 +25,14 @@ type EventFormProps = {
 
 type EventRouteParam = { eventId: string };
 
+type PageContentProps = {
+  title: string;
+};
+
+type ErrorResponse = {
+  message: string;
+};
+
 export type {
   Event,
   EventsListProps,
@@ -32,4 +40,6 @@ export type {
   EventFormProps,
   EventRouteParam,
   Data,
+  PageContentProps,
+  ErrorResponse,
 };
