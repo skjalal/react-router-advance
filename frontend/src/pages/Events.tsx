@@ -2,11 +2,14 @@ import React, { type JSX } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import EventsList from "../components/EventsList";
-import type { Event } from "../utils/data-types";
+import type { Data } from "../utils/data-types";
 
 const EventsPage: React.FC = (): JSX.Element => {
-  const events = useLoaderData<Event[]>();
-
+  const data = useLoaderData<Data>();
+  const { events, isError, message } = data;
+  if (isError) {
+    return <p>{message}</p>;
+  }
   return <EventsList events={events} />;
 };
 

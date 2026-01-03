@@ -1,13 +1,15 @@
-import type { Data, Event } from "../utils/data-types";
+import type { Data } from "../utils/data-types.ts";
 
-export const eventLoader = async (): Promise<Event[]> => {
+export const eventLoader = async (): Promise<Response> => {
   const response = await fetch("http://localhost:3000/events");
 
   if (response.ok) {
-    const resData: Data = await response.json();
-    return resData.events;
-  } else {
-    console.error("Fetching events failed.");
+    return response;
   }
-  return [];
+  const data: Data = {
+    isError: true,
+    message: "Could not fetch events...",
+    events: [],
+  };
+  return new Response(JSON.stringify(data), { status: 500 });
 };

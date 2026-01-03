@@ -20,7 +20,7 @@ const app = buildApp();
 router.get("/", async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const events = await loadEvents();
-    res.json({ events });
+    setTimeout(() => res.json({ events }), 1500);
   } catch (error) {
     next(error);
   }
