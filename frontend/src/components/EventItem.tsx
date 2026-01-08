@@ -4,7 +4,6 @@ import classes from "./EventItem.module.css";
 
 const EventItem: React.FC<EventItemProps> = ({ event }): JSX.Element => {
   const startDeleteHandler = (): void => {};
-
   return (
     <article className={classes.event}>
       <img src={event.image} alt={event.title} />
