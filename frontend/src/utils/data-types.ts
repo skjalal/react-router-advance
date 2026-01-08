@@ -15,12 +15,12 @@ type EventsListProps = {
 };
 
 type EventItemProps = {
-  event: Event;
+  event?: Event;
 };
 
 type EventFormProps = {
   method: string;
-  event: Event;
+  event?: Event;
 };
 
 type EventRouteParam = { eventId: string };

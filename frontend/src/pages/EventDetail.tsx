@@ -1,13 +1,13 @@
 import React, { type JSX } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useRouteLoaderData } from "react-router-dom";
 import type { EventItemProps } from "../utils/data-types";
 import EventItem from "../components/EventItem";
 
 const EventDetailPage: React.FC = (): JSX.Element => {
-  const { event } = useLoaderData<EventItemProps>();
+  const data = useRouteLoaderData<EventItemProps>("event-detail");
   return (
     <>
-      <EventItem event={event} />
+      <EventItem event={data?.event} />
       <p>
         <Link to=".." relative="path">
           Back
