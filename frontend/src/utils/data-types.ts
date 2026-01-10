@@ -31,6 +31,7 @@ type PageContentProps = {
 
 type ErrorResponse = {
   message: string;
+  errors?: Event;
 };
 
 export type {

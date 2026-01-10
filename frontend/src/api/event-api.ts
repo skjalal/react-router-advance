@@ -52,6 +52,8 @@ export const saveEventAction = async (
 
   if (response.ok) {
     return redirect("/events");
+  } else if (response.status === 422) {
+    return response;
   } else {
     const error: ErrorResponse = {
       message: "Failed to save new event",

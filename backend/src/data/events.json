@@ -1,13 +1,6 @@
 {
   "events": [
     {
-      "id": "8da1207d-c020-4a0a-9e6b-d560a1a72de1",
-      "title": "A new Event",
-      "image": "https://theconcepto.com/assets/img/events-1.png",
-      "date": "2026-01-21",
-      "description": "An special event!"
-    },
-    {
       "id": "e1",
       "title": "A dummy event",
       "date": "2023-02-22",
