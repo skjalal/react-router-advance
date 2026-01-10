@@ -46,7 +46,9 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
         errors,
       });
     }
-    return res.status(code).json({ message, event });
+    setTimeout(() => {
+      res.status(code).json({ message, event });
+    }, 1500);
   } catch (error) {
     next(error);
   }
@@ -66,7 +68,9 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
         errors,
       });
     }
-    return res.status(code).json({ message, event });
+    setTimeout(() => {
+      res.status(code).json({ message, event });
+    }, 1500);
   } catch (error) {
     next(error);
   }

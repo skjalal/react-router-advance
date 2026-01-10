@@ -1,5 +1,5 @@
 import React, { type JSX } from "react";
-import { useNavigate, Form } from "react-router-dom";
+import { useNavigate, Form, useNavigation } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 import type { EventFormProps } from "../utils/data-types";
@@ -9,9 +9,11 @@ const EventForm: React.FC<EventFormProps> = ({
   event,
 }): JSX.Element => {
   const navigate = useNavigate();
+  const navigation = useNavigation();
   const cancelHandler = (): void => {
     navigate("..");
   };
+  const isSubmitting: boolean = navigation.state === "submitting";
   console.log(method);
 
   return (
@@ -57,10 +59,12 @@ const EventForm: React.FC<EventFormProps> = ({
         />
       </p>
       <div className={classes.actions}>
-        <button type="button" onClick={cancelHandler}>
+        <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
           Cancel
         </button>
-        <button>Save</button>
+        <button disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Save"}
+        </button>
       </div>
     </Form>
   );
