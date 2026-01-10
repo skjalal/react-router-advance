@@ -1,10 +1,17 @@
 import React, { type JSX } from "react";
+import { Link, useSubmit } from "react-router-dom";
+
 import type { EventItemProps } from "../utils/data-types.ts";
 import classes from "./EventItem.module.css";
-import { Link } from "react-router-dom";
 
 const EventItem: React.FC<EventItemProps> = ({ event }): JSX.Element => {
-  const startDeleteHandler = (): void => {};
+  const submit = useSubmit();
+  const startDeleteHandler = (): void => {
+    const proceed: boolean = globalThis.confirm("Are you sure?");
+    if (proceed) {
+      submit(null, { method: "delete" });
+    }
+  };
   return (
     <article className={classes.event}>
       <img src={event?.image} alt={event?.title} />

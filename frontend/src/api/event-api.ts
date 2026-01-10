@@ -59,3 +59,22 @@ export const saveEventAction = async (
     throw data(JSON.stringify(error), { status: response.status });
   }
 };
+
+export const removeEventById = async (
+  args: LoaderFunctionArgs
+): Promise<Response> => {
+  const { params, request } = args;
+  const id = params.eventId;
+  const response = await fetch(`http://localhost:3000/events/${id}`, {
+    method: request.method,
+  });
+
+  if (response.ok) {
+    return redirect("/events");
+  } else {
+    const error: ErrorResponse = {
+      message: `Could not delete event of id: ${id}`,
+    };
+    throw data(JSON.stringify(error), { status: response.status });
+  }
+};

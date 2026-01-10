@@ -128,6 +128,9 @@ export async function removeEvent(id: string): Promise<EventResponse> {
   }
   const updatedData: Event[] | undefined = events.filter((ev) => ev.id !== id);
   const filePath = path.join(process.cwd(), "src", "data", DATA_FILE);
-  await fs.writeFile(filePath, JSON.stringify({ updatedData }, null, 2));
+  await fs.writeFile(
+    filePath,
+    JSON.stringify({ events: updatedData }, null, 2)
+  );
   return { message: "Event updated.", code: 200 };
 }

@@ -17,6 +17,7 @@ import {
   eventLoader,
   eventLoaderById,
   saveEventAction,
+  removeEventById,
 } from "./api/event-api.ts";
 
 import "./App.css";
@@ -41,6 +42,7 @@ const routes: RouteObject[] = [
               {
                 index: true,
                 element: <EventDetailPage />,
+                action: removeEventById,
               },
               { path: "edit", element: <EditEventPage /> },
             ],
