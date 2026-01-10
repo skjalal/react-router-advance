@@ -1,5 +1,5 @@
 import React, { type JSX } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Form } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 import type { EventFormProps } from "../utils/data-types";
@@ -13,10 +13,9 @@ const EventForm: React.FC<EventFormProps> = ({
     navigate("..");
   };
   console.log(method);
-  console.log(event);
 
   return (
-    <form className={classes.form}>
+    <Form method="post" className={classes.form}>
       <p>
         <label htmlFor="title">Title</label>
         <input
@@ -63,7 +62,7 @@ const EventForm: React.FC<EventFormProps> = ({
         </button>
         <button>Save</button>
       </div>
-    </form>
+    </Form>
   );
 };
 

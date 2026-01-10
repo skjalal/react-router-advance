@@ -1,7 +1,8 @@
 import React, { type JSX } from "react";
+import EventForm from "../components/EventForm";
 
 const NewEventPage: React.FC = (): JSX.Element => {
-  return <h1>New Event Page</h1>;
+  return <EventForm method="post" />;
 };
 
 export default NewEventPage;
