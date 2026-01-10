@@ -16,7 +16,7 @@ import EventsRootLayout from "./pages/EventsRoot.tsx";
 import {
   eventLoader,
   eventLoaderById,
-  saveEventAction,
+  saveOrEditEventAction,
   removeEventById,
 } from "./api/event-api.ts";
 
@@ -44,10 +44,18 @@ const routes: RouteObject[] = [
                 element: <EventDetailPage />,
                 action: removeEventById,
               },
-              { path: "edit", element: <EditEventPage /> },
+              {
+                path: "edit",
+                element: <EditEventPage />,
+                action: saveOrEditEventAction,
+              },
             ],
           },
-          { path: "new", element: <NewEventPage />, action: saveEventAction },
+          {
+            path: "new",
+            element: <NewEventPage />,
+            action: saveOrEditEventAction,
+          },
         ],
       },
     ],

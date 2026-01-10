@@ -5,7 +5,7 @@ import type { EventItemProps } from "../utils/data-types";
 
 const EditEventPage: React.FC = (): JSX.Element => {
   const data = useRouteLoaderData<EventItemProps>("event-detail");
-  return <EventForm method="get" event={data?.event} />;
+  return <EventForm method="put" event={data?.event} />;
 };
 
 export default EditEventPage;

@@ -1,3 +1,5 @@
+import type { HTMLFormMethod } from "react-router-dom";
+
 type Event = {
   id: string;
   title: string;
@@ -19,7 +21,7 @@ type EventItemProps = {
 };
 
 type EventFormProps = {
-  method: string;
+  method: HTMLFormMethod;
   event?: Event;
 };
 

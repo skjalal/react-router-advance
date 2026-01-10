@@ -20,10 +20,9 @@ const EventForm: React.FC<EventFormProps> = ({
     navigate("..");
   };
   const isSubmitting: boolean = navigation.state === "submitting";
-  console.log(method);
 
   return (
-    <Form method="post" className={classes.form}>
+    <Form method={method} className={classes.form}>
       {data?.errors && (
         <ul>
           {Object.values(data.errors).map((err) => (

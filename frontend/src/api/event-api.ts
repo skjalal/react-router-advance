@@ -30,20 +30,26 @@ export const eventLoaderById = async (
   }
 };
 
-export const saveEventAction = async (
+export const saveOrEditEventAction = async (
   args: LoaderFunctionArgs
 ): Promise<Response> => {
-  const { request } = args;
+  const { request, params } = args;
+  const eventId: string = params.eventId || "";
+  const method: string = request.method;
   const requestData = await request.formData();
   const eventData: Event = {
-    id: "",
+    id: eventId,
     title: requestData.get("title") as string,
     image: requestData.get("image") as string,
     date: requestData.get("date") as string,
     description: requestData.get("description") as string,
   };
-  const response = await fetch("http://localhost:3000/events/", {
-    method: "POST",
+  let url = "http://localhost:3000/events/";
+  if (method === "PUT") {
+    url = "http://localhost:3000/events/" + eventId;
+  }
+  const response = await fetch(url, {
+    method: method,
     headers: {
       "Content-Type": "application/json",
     },
