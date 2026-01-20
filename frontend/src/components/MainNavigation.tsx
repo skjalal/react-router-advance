@@ -1,6 +1,7 @@
 import React, { type JSX } from "react";
 import { NavLink } from "react-router-dom";
 
+import NewsletterSignup from "./NewsletterSignup.tsx";
 import classes from "./MainNavigation.module.css";
 
 const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
@@ -22,8 +23,14 @@ const MainNavigation: React.FC = (): JSX.Element => {
               Events
             </NavLink>
           </li>
+          <li>
+            <NavLink to="newsletter" className={getNavLinkClass}>
+              Newsletter
+            </NavLink>
+          </li>
         </ul>
       </nav>
+      <NewsletterSignup />
     </header>
   );
 };

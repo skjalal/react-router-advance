@@ -86,3 +86,24 @@ export const removeEventById = async (
     throw data(JSON.stringify(error), { status: response.status });
   }
 };
+
+export const newsletterAction = async (
+  args: LoaderFunctionArgs
+): Promise<Response> => {
+  const { request } = args;
+  const data = await request.formData();
+  const email = data.get("email") as string;
+
+  // send to backend newsletter server ...
+  console.log(email);
+  const response = { message: "Signup successful!" };
+  const jsonBody = JSON.stringify(response);
+  const options = {
+    status: 200,
+    statusText: "OK",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return new Response(jsonBody, options);
+};

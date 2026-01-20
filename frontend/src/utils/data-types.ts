@@ -36,6 +36,10 @@ type ErrorResponse = {
   errors?: Event;
 };
 
+type SignupResponse = {
+  message: string;
+};
+
 export type {
   Event,
   EventsListProps,
@@ -45,4 +49,5 @@ export type {
   Data,
   PageContentProps,
   ErrorResponse,
+  SignupResponse,
 };

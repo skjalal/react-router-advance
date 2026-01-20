@@ -13,11 +13,13 @@ import EventDetailPage from "./pages/EventDetail.tsx";
 import NewEventPage from "./pages/NewEvent.tsx";
 import EditEventPage from "./pages/EditEvent.tsx";
 import EventsRootLayout from "./pages/EventsRoot.tsx";
+import NewsletterPage from "./pages/Newsletter.tsx";
 import {
   eventLoader,
   eventLoaderById,
   saveOrEditEventAction,
   removeEventById,
+  newsletterAction,
 } from "./api/event-api.ts";
 
 import "./App.css";
@@ -57,6 +59,11 @@ const routes: RouteObject[] = [
             action: saveOrEditEventAction,
           },
         ],
+      },
+      {
+        path: "newsletter",
+        element: <NewsletterPage />,
+        action: newsletterAction,
       },
     ],
   },
