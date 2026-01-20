@@ -1,16 +1,26 @@
 import { data, type LoaderFunctionArgs, redirect } from "react-router-dom";
-import type { ErrorResponse } from "../utils/data-types";
-import type { Event } from "../utils/data-types.ts";
 
-export const eventLoader = async (): Promise<Response> => {
+import type {
+  Event,
+  Data,
+  DeferData,
+  ErrorResponse,
+} from "../utils/data-types.ts";
+
+async function loadEvents(): Promise<Event[]> {
   const response = await fetch("http://localhost:3000/events");
 
   if (response.ok) {
-    return response;
+    const data: Data = await response.json();
+    return data.events;
   } else {
     const error: ErrorResponse = { message: "Could not fetch events..." };
     throw data(JSON.stringify(error), { status: response.status });
   }
+}
+
+export const eventLoader = (): DeferData => {
+  return { events: loadEvents() };
 };
 
 export const eventLoaderById = async (

@@ -1,20 +1,18 @@
-import React, { type JSX } from "react";
-import { useLoaderData, useNavigation } from "react-router-dom";
+import React, { type JSX, Suspense } from "react";
+import { useLoaderData, Await } from "react-router-dom";
 
 import EventsList from "../components/EventsList";
-import type { Data } from "../utils/data-types";
+import type { DeferData } from "../utils/data-types";
 
 const EventsPage: React.FC = (): JSX.Element => {
-  const navigation = useNavigation();
-  const isLoading: boolean = navigation.state === "loading";
-  const { events } = useLoaderData<Data>();
-  let element: JSX.Element;
-  if (isLoading) {
-    element = <p className="loader">Loading...</p>;
-  } else {
-    element = <EventsList events={events} />;
-  }
-  return element;
+  const { events } = useLoaderData<DeferData>();
+  return (
+    <Suspense fallback={<p className="loader">Loading...</p>}>
+      <Await resolve={events}>
+        {(loadedEvents) => <EventsList events={loadedEvents} />}
+      </Await>
+    </Suspense>
+  );
 };
 
 export default EventsPage;

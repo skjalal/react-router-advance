@@ -12,6 +12,10 @@ type Data = {
   events: Event[];
 };
 
+type DeferData = {
+  events: Promise<Event[]>;
+};
+
 type EventsListProps = {
   events: Event[];
 };
@@ -50,4 +54,5 @@ export type {
   PageContentProps,
   ErrorResponse,
   SignupResponse,
+  DeferData,
 };
