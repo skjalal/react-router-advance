@@ -4,6 +4,7 @@ import type {
   Event,
   Data,
   DeferData,
+  DeferEventData,
   ErrorResponse,
 } from "../utils/data-types.ts";
 
@@ -19,29 +20,30 @@ async function loadEvents(): Promise<Event[]> {
   }
 }
 
+async function loadEvent(id: string): Promise<Event> {
+  const response = await fetch(`http://localhost:3000/events/${id}`);
+
+  if (response.ok) {
+    const { event } = await response.json();
+    return event;
+  } else {
+    const error: ErrorResponse = { message: "Could not fetch events..." };
+    throw data(JSON.stringify(error), { status: response.status });
+  }
+}
+
 export const eventLoader = (): DeferData => {
   return { events: loadEvents() };
 };
 
-export const eventLoaderById = async (
-  args: LoaderFunctionArgs
-): Promise<Response> => {
+export const eventLoaderById = (args: LoaderFunctionArgs): DeferEventData => {
   const { params } = args;
-  const id = params.eventId;
-  const response = await fetch(`http://localhost:3000/events/${id}`);
-
-  if (response.ok) {
-    return response;
-  } else {
-    const error: ErrorResponse = {
-      message: `Could not fetch event of id: ${id}`,
-    };
-    throw data(JSON.stringify(error), { status: response.status });
-  }
+  const id = params.eventId!;
+  return { event: loadEvent(id), events: loadEvents() };
 };
 
 export const saveOrEditEventAction = async (
-  args: LoaderFunctionArgs
+  args: LoaderFunctionArgs,
 ): Promise<Response> => {
   const { request, params } = args;
   const eventId: string = params.eventId || "";
@@ -79,7 +81,7 @@ export const saveOrEditEventAction = async (
 };
 
 export const removeEventById = async (
-  args: LoaderFunctionArgs
+  args: LoaderFunctionArgs,
 ): Promise<Response> => {
   const { params, request } = args;
   const id = params.eventId;
@@ -98,7 +100,7 @@ export const removeEventById = async (
 };
 
 export const newsletterAction = async (
-  args: LoaderFunctionArgs
+  args: LoaderFunctionArgs,
 ): Promise<Response> => {
   const { request } = args;
   const data = await request.formData();

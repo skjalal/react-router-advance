@@ -16,6 +16,11 @@ type DeferData = {
   events: Promise<Event[]>;
 };
 
+type DeferEventData = {
+  event: Promise<Event>;
+  events: Promise<Event[]>;
+};
+
 type EventsListProps = {
   events: Event[];
 };
@@ -55,4 +60,5 @@ export type {
   ErrorResponse,
   SignupResponse,
   DeferData,
+  DeferEventData,
 };
