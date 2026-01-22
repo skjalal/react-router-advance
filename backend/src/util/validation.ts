@@ -1,4 +1,5 @@
-const isValidText = (value: string): boolean => value?.trim().length > 0;
+const isValidText = (value: string, minLength = 1): boolean =>
+  value?.trim().length > minLength;
 
 const isValidDate = (value: string): boolean => {
   const date = new Date(value);
@@ -7,4 +8,6 @@ const isValidDate = (value: string): boolean => {
 
 const isValidImageUrl = (value: string): boolean => value?.startsWith("http");
 
-export { isValidText, isValidDate, isValidImageUrl };
+const isValidEmail = (value: string): boolean => value?.includes("@");
+
+export { isValidText, isValidDate, isValidImageUrl, isValidEmail };

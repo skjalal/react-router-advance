@@ -12,6 +12,7 @@ import {
   removeEvent,
 } from "./routes/event.js";
 import { Event, EventResponse } from "./util/data-types.js";
+import { checkAuth, router as authRoutes } from "./routes/auth.js";
 import { NotFoundError } from "./util/error.js";
 
 const router = Router();
@@ -19,7 +20,7 @@ const app = buildApp();
 
 router.get("/", async (_req: Request, res: Response, next: NextFunction) => {
   try {
-    const events = await loadEvents();
+    const { events } = await loadEvents();
     setTimeout(() => res.json({ events }), 1500);
   } catch (error) {
     next(error);
@@ -35,6 +36,8 @@ router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 });
+
+router.use(checkAuth);
 
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
   const event: Event = req.body;
@@ -60,7 +63,7 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { message, errors, code }: EventResponse = await updateEvent(
       id,
-      event
+      event,
     );
     if (errors) {
       return res.status(code).json({
@@ -92,8 +95,10 @@ router.delete(
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
+
+app.use(authRoutes);
 
 app.use("/events", router);
 app.get("/healthz", healthHandler);

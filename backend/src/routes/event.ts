@@ -16,12 +16,12 @@ import {
 
 const DATA_FILE = "events.json";
 
-export async function loadEvents(): Promise<Event[]> {
+export async function loadEvents(): Promise<Data> {
   try {
     const filePath = path.join(process.cwd(), "src", "data", DATA_FILE);
     const raw = await fs.readFile(filePath, "utf-8");
     const json: Data = JSON.parse(raw);
-    return json.events;
+    return json;
   } catch (err: unknown) {
     console.error(err);
     throw new NotFoundError("Could not find any events.");
@@ -29,7 +29,8 @@ export async function loadEvents(): Promise<Event[]> {
 }
 
 export async function getEvent(id: string): Promise<Event> {
-  const events: Event[] = await loadEvents();
+  const storedData: Data = await loadEvents();
+  const events: Event[] = storedData.events;
   if (events.length === 0) {
     throw new NotFoundError("Could not find any events.");
   }
@@ -67,20 +68,24 @@ export async function saveEvent(event: Event): Promise<EventResponse> {
       code: 422,
     };
   }
-  const events: Event[] = await loadEvents();
+  const storedData: Data = await loadEvents();
+  const events: Event[] = storedData.events;
   if (events.length === 0) {
     throw new NotFoundError("Could not find any events.");
   }
 
   events.unshift({ ...event, id: generateId() });
   const filePath = path.join(process.cwd(), "src", "data", DATA_FILE);
-  await fs.writeFile(filePath, JSON.stringify({ events }, null, 2));
+  await fs.writeFile(
+    filePath,
+    JSON.stringify({ ...storedData, events }, null, 2),
+  );
   return { message: "Event saved.", event, code: 201 };
 }
 
 export async function updateEvent(
   id: string,
-  event: Event
+  event: Event,
 ): Promise<EventResponse> {
   const { title, description, image, date } = event;
   const errors: EventErrorResponse = {};
@@ -107,7 +112,8 @@ export async function updateEvent(
       code: 422,
     };
   }
-  const events: Event[] = await loadEvents();
+  const storedData: Data = await loadEvents();
+  const events: Event[] = storedData.events;
   if (events.length === 0) {
     throw new NotFoundError("Could not find any events.");
   }
@@ -117,12 +123,16 @@ export async function updateEvent(
   }
   events[index] = { ...event, id };
   const filePath = path.join(process.cwd(), "src", "data", DATA_FILE);
-  await fs.writeFile(filePath, JSON.stringify({ events }, null, 2));
+  await fs.writeFile(
+    filePath,
+    JSON.stringify({ ...storedData, events }, null, 2),
+  );
   return { message: "Event updated.", event, code: 200 };
 }
 
 export async function removeEvent(id: string): Promise<EventResponse> {
-  const events: Event[] = await loadEvents();
+  const storedData: Data = await loadEvents();
+  const events: Event[] = storedData.events;
   if (events.length === 0) {
     throw new NotFoundError("Could not find any events.");
   }
@@ -130,7 +140,7 @@ export async function removeEvent(id: string): Promise<EventResponse> {
   const filePath = path.join(process.cwd(), "src", "data", DATA_FILE);
   await fs.writeFile(
     filePath,
-    JSON.stringify({ events: updatedData }, null, 2)
+    JSON.stringify({ ...storedData, events: updatedData }, null, 2),
   );
   return { message: "Event updated.", code: 200 };
 }

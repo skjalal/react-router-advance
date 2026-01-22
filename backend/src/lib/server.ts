@@ -8,7 +8,7 @@ export function buildApp(): Application {
     express.static(path.join(process.cwd(), "src", "images"), {
       maxAge: "1d", // cache hint
       index: false,
-    })
+    }),
   );
 
   // CORS
