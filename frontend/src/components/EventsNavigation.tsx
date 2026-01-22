@@ -1,5 +1,5 @@
 import React, { type JSX } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useRouteLoaderData } from "react-router-dom";
 
 import classes from "./EventsNavigation.module.css";
 
@@ -8,6 +8,7 @@ const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
 };
 
 const EventsNavigation: React.FC = (): JSX.Element => {
+  const token = useRouteLoaderData<string>("root");
   return (
     <header className={classes.header}>
       <nav>
@@ -17,11 +18,13 @@ const EventsNavigation: React.FC = (): JSX.Element => {
               All Events
             </NavLink>
           </li>
-          <li>
-            <NavLink to="new" className={getNavLinkClass}>
-              New Event
-            </NavLink>
-          </li>
+          {token !== "" && (
+            <li>
+              <NavLink to="new" className={getNavLinkClass}>
+                New Event
+              </NavLink>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

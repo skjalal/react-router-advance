@@ -1,11 +1,18 @@
-import React, { type JSX } from "react";
+import React, { Suspense, type JSX } from "react";
 import EventForm from "../components/EventForm";
-import { useRouteLoaderData } from "react-router-dom";
-import type { EventItemProps } from "../utils/data-types";
+import { Await, useRouteLoaderData } from "react-router-dom";
+import type { DeferEventData } from "../utils/data-types";
 
 const EditEventPage: React.FC = (): JSX.Element => {
-  const data = useRouteLoaderData<EventItemProps>("event-detail");
-  return <EventForm method="put" event={data?.event} />;
+  const { event } = useRouteLoaderData<DeferEventData>("event-detail")!;
+
+  return (
+    <Suspense fallback={<p className="loader">Loading...</p>}>
+      <Await resolve={event}>
+        {(loadedEvent) => <EventForm method="put" event={loadedEvent} />}
+      </Await>
+    </Suspense>
+  );
 };
 
 export default EditEventPage;

@@ -1,12 +1,25 @@
 {
   "events": [
     {
+      "id": "5663992c-1d9e-487e-9753-1080354d1360",
+      "title": "A dummy event",
+      "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
+      "date": "2026-01-23",
+      "description": "Join this amazing event and connect with fellow developers."
+    },
+    {
+      "id": "2a42fcc4-ea21-4bdd-abf6-c40006dc66a9",
       "title": "A new event",
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/M%C3%BCnchen_Panorama.JPG/1024px-M%C3%BCnchen_Panorama.JPG",
       "date": "2022-10-01",
-      "description": "Some awesome event!",
-      "id": "2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"
+      "description": "Some awesome event!!!"
     }
   ],
-  "users": []
+  "users": [
+    {
+      "email": "max@example.com",
+      "password": "$2a$12$1cklRs3i7RDXZ8IKQn5WXOAp4Ee2OoA93OiGecn1/uAPglqezsIrW",
+      "id": "2d721c5e-c941-4e48-ae03-b93ab7e752c3"
+    }
+  ]
 }

@@ -16,7 +16,7 @@ export function buildApp(): Application {
   app.use((_req, res: Response, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*"); // allow all domains
     res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
 
     next();
   });

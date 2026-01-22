@@ -1,5 +1,5 @@
 import React, { type JSX } from "react";
-import { NavLink } from "react-router-dom";
+import { Form, NavLink, useRouteLoaderData } from "react-router-dom";
 
 import NewsletterSignup from "./NewsletterSignup.tsx";
 import classes from "./MainNavigation.module.css";
@@ -9,6 +9,7 @@ const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
 };
 
 const MainNavigation: React.FC = (): JSX.Element => {
+  const token = useRouteLoaderData<string>("root");
   return (
     <header className={classes.header}>
       <nav>
@@ -28,6 +29,20 @@ const MainNavigation: React.FC = (): JSX.Element => {
               Newsletter
             </NavLink>
           </li>
+          {(token === "" || token === "EXPIRED") && (
+            <li>
+              <NavLink to="auth?mode=login" className={getNavLinkClass}>
+                Authentication
+              </NavLink>
+            </li>
+          )}
+          {token !== "" && token !== "EXPIRED" && (
+            <li>
+              <Form action="/logout" method="post">
+                <button>Logout</button>
+              </Form>
+            </li>
+          )}
         </ul>
       </nav>
       <NewsletterSignup />

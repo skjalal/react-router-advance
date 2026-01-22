@@ -49,6 +49,19 @@ type SignupResponse = {
   message: string;
 };
 
+type User = {
+  id?: string;
+  email: string;
+  password: string;
+};
+
+type AuthResponse = {
+  message?: string;
+  user?: User;
+  token?: string;
+  errors?: User;
+};
+
 export type {
   Event,
   EventsListProps,
@@ -61,4 +74,6 @@ export type {
   SignupResponse,
   DeferData,
   DeferEventData,
+  User,
+  AuthResponse,
 };
